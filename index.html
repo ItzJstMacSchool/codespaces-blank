@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Obi Empire PVPHQ Leaderboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background:
+    linear-gradient(
+      135deg,
+      #281919,
+      #763f3f
+    );
+      color: #ffffff;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 5px;
+      font-size: 2rem;
+    }
+
+    .updated {
+      color: #9e8b8b;
+      font-size: 0.9rem;
+      margin-bottom: 40px;
+    }
+
+    /* Podium Container */
+    .podium {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 12px;
+      max-width: 750px;
+      margin: 0 auto 50px auto;
+    }
+
+    .podium-spot {
+      background: linear-gradient(
+        -180deg,
+        #3d2323,
+        #803737
+      );
+      border-radius: 12px 12px 0 0;
+      padding: 18px 12px;
+      flex: 1;
+      max-width: 210px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Podium Heights & Colors */
+    .rank-1 {
+      min-height: 250px;
+      border-top: 5px solid #ffd700;
+      order: 2; /* Center */
+    }
+
+    .rank-2 {
+      min-height: 205px;
+      border-top: 5px solid #c0c0c0;
+      order: 1; /* Left */
+    }
+
+    .rank-3 {
+      min-height: 175px;
+      border-top: 5px solid #cd7f32;
+      order: 3; /* Right */
+    }
+
+    .podium-spot img {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .place-badge {
+      font-weight: bold;
+      font-size: 1.2rem;
+      margin-bottom: 5px;
+    }
+
+    .rank-1 .place-badge { color: #ffd700; }
+    .rank-2 .place-badge { color: #c0c0c0; }
+    .rank-3 .place-badge { color: #cd7f32; }
+
+    .player-name {
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      word-break: break-word;
+    }
+
+    .player-points {
+      color: #ff5858;
+      font-weight: bold;
+    }
+
+    /* Responsive Table Wrapper */
+    .table-wrapper {
+      max-width: 850px;
+      margin: 0 auto;
+      overflow-x: auto;
+      border-radius: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: linear-gradient(
+        135deg,
+        #110a0a,
+        #4d2828
+      );
+    }
+
+    th, td {
+      padding: 14px;
+      text-align: left;
+      border-bottom: 1px solid #452b2b;
+    }
+
+    th {
+      background: linear-gradient(
+        -180deg,
+        #3d2525,
+        #4d2828
+      );
+      color: #9e8b8b;
+      text-transform: uppercase;
+      font-size: 0.85rem;
+    }
+
+    .player-cell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+    }
+
+    .player-cell img {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+    }
+
+    .tier-badge {
+      background-color: #452b2b;
+      padding: 4px 8px;
+      border-radius: 5px;
+      font-size: 0.85rem;
+      margin: 2px 5px 2px 0;
+      display: inline-block;
+    }
+
+    .unranked {
+      color: #9e8b8b;
+      font-style: italic;
+      font-size: 0.9rem;
+    }
+
+    /* Mobile Adjustments */
+    @media (max-width: 550px) {
+      .podium {
+        gap: 8px;
+      }
+      .podium-spot {
+        padding: 14px 8px;
+      }
+      .podium-spot img {
+        width: 48px;
+        height: 48px;
+      }
+      .player-name {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Obsidian Empire PVPHQ Leaderboard</h1>
+  <div class="updated" id="last-updated">Loading stats...</div>
+
+  <!-- Top 3 Podium -->
+  <div class="podium" id="podium-container"></div>
+
+  <!-- Full Ranks Table -->
+  <div class="table-wrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Player</th>
+          <th>Overall Points</th>
+          <th>Kit Ranks</th>
+        </tr>
+      </thead>
+      <tbody id="leaderboard-body"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const FALLBACK_AVATAR = 'https://mc-heads.net/steve/64';
+
+    async function loadLeaderboard() {
+      try {
+        const response = await fetch('stats.json?t=${Date.now()}',{
+           cache: 'no-store' 
+          });
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        document.getElementById('last-updated').textContent =
+          'Last Updated: ' + (data.lastUpdated || 'Unknown');
+
+        const players = Array.isArray(data.players) ? data.players : [];
+        const sortedPlayers = [...players].sort((a, b) => (b.points || 0) - (a.points || 0));
+
+        // Render Top 3 Podium
+        const podiumContainer = document.getElementById('podium-container');
+        podiumContainer.innerHTML = '';
+        const top3 = sortedPlayers.slice(0, 3);
+
+        top3.forEach((player, index) => {
+          const rank = index + 1;
+          const spot = document.createElement('div');
+          spot.className = `podium-spot rank-${rank}`;
+          spot.innerHTML = `
+            <div class="place-badge">#${rank}</div>
+            <img src="https://mc-heads.net/avatar/${encodeURIComponent(player.username)}/64"
+                 onerror="this.onerror=null;this.src='${FALLBACK_AVATAR}';"
+                 alt="${player.username}">
+            <div class="player-name">${player.username}</div>
+            <div class="player-points">${player.points ?? 0} pts</div>
+          `;
+          podiumContainer.appendChild(spot);
+        });
+
+        // Render Full Table
+        const tableBody = document.getElementById('leaderboard-body');
+        tableBody.innerHTML = '';
+
+        sortedPlayers.forEach((player, index) => {
+          const entries = Object.entries(player.ranks || {});
+          const rankBadges = entries.length > 0
+            ? entries.map(([kit, tier]) => `<span class="tier-badge">${kit}: <strong>${tier}</strong></span>`).join('')
+            : '<span class="unranked">Unranked</span>';
+
+          const row = document.createElement('tr');
+          row.innerHTML = `
+            <td>#${index + 1}</td>
+            <td>
+  <div class="player-cell">
+    <img
+      src="https://mc-heads.net/avatar/${encodeURIComponent(player.username)}/32"
+      alt="${player.username}"
+    >
+
+    <a
+      href="https://pvphq.com/player/${player.uuid}"
+      target="_blank"
+      class="profile-link"
+    >
+      ${player.username}
+    </a>
+  </div>
+</td>
+            <td><strong>${player.points ?? 0}</strong></td>
+            <td>${rankBadges}</td>
+          `;
+          tableBody.appendChild(row);
+        });
+      } catch (error) {
+        document.getElementById('last-updated').textContent = 'Error loading stats.json';
+        console.error(error);
+      }
+    }
+
+    loadLeaderboard();
+
+setInterval(() => {
+  loadLeaderboard();
+}, 30 * 60 * 1000);
+  </script>
+
+</body>
+</html>

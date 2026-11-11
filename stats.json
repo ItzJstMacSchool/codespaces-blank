@@ -1,0 +1,120 @@
+{
+  "lastUpdated": "Wed, 11 Nov 2026 17:05:00 GMT",
+  "players": [
+    {
+      "username": "ItzJstMac",
+      "uuid": "cad9f89b-1413-4f24-acfe-4d6301a47bd9",
+      "points": 44,
+      "ranks": {
+        "Sword": "HT4",
+        "Axe": "LT4",
+        "Mace": "HT4",
+        "Spear": "LT3",
+        "UHC": "Unranked",
+        "NethPot": "HT5",
+        "Pot": "Unranked",
+        "SMP": "MT4",
+        "DiaSMP": "HT4",
+        "Cart": "HT4"
+      }
+    },
+    {
+      "username": "greenownscedar",
+      "uuid": "c878e4c0-08bf-440e-b911-2023dbdb8410",
+      "points": 43,
+      "ranks": {
+        "Sword": "HT4",
+        "Axe": "MT4",
+        "Mace": "HT5",
+        "Spear": "LT4",
+        "UHC": "HT4",
+        "NethPot": "Recalibrating",
+        "Pot": "HT5",
+        "SMP": "HT4",
+        "DiaSMP": "HT4",
+        "Vanilla": "Unranked",
+        "Cart": "LT4"
+      }
+    },
+    {
+      "username": "_RiverDrift",
+      "uuid": "8111ce3a-c2bf-4917-9240-29acfc55ca6b",
+      "points": 32,
+      "ranks": {
+        "Sword": "HT4",
+        "Axe": "Unranked",
+        "Spear": "MT4",
+        "UHC": "MT4",
+        "Pot": "HT4",
+        "SMP": "MT4",
+        "DiaSMP": "MT4",
+        "Cart": "Unranked"
+      }
+    },
+    {
+      "username": "Pluuto_fs",
+      "uuid": "91d2617b-8ae3-49a4-a878-1fe613b80ed1",
+      "points": 15,
+      "ranks": {
+        "Sword": "HT3",
+        "Axe": "Recalibrating",
+        "Mace": "Unranked",
+        "Spear": "Recalibrating",
+        "UHC": "Recalibrating",
+        "Pot": "Unranked",
+        "SMP": "Recalibrating",
+        "DiaSMP": "Recalibrating"
+      }
+    },
+    {
+      "username": "tjafk",
+      "uuid": "f9138b88-d653-4c8f-b3e0-41852c9b4708",
+      "points": 2,
+      "ranks": {
+        "Sword": "MT5",
+        "Axe": "Unranked",
+        "DiaSMP": "Recalibrating"
+      }
+    },
+    {
+      "username": "elidaghost",
+      "uuid": "4a0309d2-7453-4dd3-8378-d9ce152bcb06",
+      "points": 0,
+      "ranks": {}
+    },
+    {
+      "username": "Sirr_Alonne",
+      "uuid": "09b3a30b-c135-45e6-a012-0c334ca8642a",
+      "points": 0,
+      "ranks": {}
+    },
+    {
+      "username": "timeweilder",
+      "uuid": "63b7f08e-a9b3-4d2c-96ba-c8ddedf2a496",
+      "points": 0,
+      "ranks": {}
+    },
+    {
+      "username": "bigboyrayy",
+      "uuid": "6022e0a8-f0a0-4903-9882-a0d0effec6e3",
+      "points": 0,
+      "ranks": {
+        "Sword": "Recalibrating",
+        "Axe": "Recalibrating",
+        "UHC": "Unranked",
+        "Pot": "Unranked",
+        "SMP": "Unranked",
+        "DiaSMP": "Recalibrating",
+        "Vanilla": "Unranked"
+      }
+    },
+    {
+      "username": "CarbideMc",
+      "uuid": "ce1a8b9d-c803-47df-9f85-dfc6ef7bc3ce",
+      "points": 0,
+      "ranks": {
+        "Sword": "Unranked"
+      }
+    }
+  ]
+}

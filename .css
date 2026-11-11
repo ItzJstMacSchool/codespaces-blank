@@ -1,0 +1,20 @@
+body {
+  background:
+    linear-gradient(
+      -180deg,
+      #281919,
+      #763f3f
+    );
+}
+
+.profile-link {
+  color: #ff5858;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.2s ease;
+}
+
+.profile-link:hover {
+  color: #7cb8ff;
+  text-decoration: underline;
+}
