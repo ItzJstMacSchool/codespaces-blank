@@ -6,7 +6,7 @@ const PLAYERS = [
   "greenownscedar",
   "ItzJstMac",
   "elidaghost",
-  "Sirr_Alonne",
+  "_Alonne",
   "timeweilder",
   "bigboyrayy",
   "Pluuto_fs",
