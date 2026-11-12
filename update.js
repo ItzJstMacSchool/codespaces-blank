@@ -74,4 +74,21 @@ async function updateLeaderboard() {
   console.log("stats.json updated!");
 }
 
+async function refreshNow() {
+  const response = await fetch("/api/refresh");
+  const data = await response.json();
+
+  renderLeaderboard(data);
+}
+
+app.get("/api/refresh", async (req, res) => {
+  const players = await Promise.all(
+    PLAYERS.map(fetchPlayer)
+  );
+
+  res.json({
+    players
+  });
+});
+
 updateLeaderboard();
